@@ -20,7 +20,7 @@ $(function() {
       ];
     setTimeout(function() {   
       
-      getMsgResponse().then(covidData => {
+      getMsgResponse(msg).then(covidData => {
         console.log("index.html 16 | covid data", covidData);
         // document.getElementById("total-cases").innerText =
         //   covidData.confirmed.value;
@@ -115,7 +115,13 @@ $(function() {
     $(".chat-box").toggle('scale');
   })
 
-
+  $("#chat-circle3").click(function() {    
+    $("#chat-circle").toggle('scale');
+    $("#chat-circle2").toggle('scale');
+    $("#chat-circle3").toggle('scale');
+    $("#chat-circle4").toggle('scale');
+    $(".nav-box").toggle('scale');
+  })
 
   $("#chat-circle4").click(function() {    
     $("#chat-circle").toggle('scale');
@@ -139,6 +145,15 @@ $(function() {
     // $("#chat-circle3").toggle('scale');
     // $("#chat-circle4").toggle('scale');
     $(".ticket-box").toggle('scale');
+  })
+
+
+  $(".nav-box-toggle").click(function() {
+    
+    $("#chat-circle2").toggle();
+    // $("#chat-circle3").toggle('scale');
+    // $("#chat-circle4").toggle('scale');
+    $(".nav-box").toggle('scale');
   })
 
 
@@ -205,6 +220,88 @@ function generate_ticket(msg, type) {
   }    
   $(".t-chat-logs").stop().animate({ scrollTop: $(".t-chat-logs")[0].scrollHeight}, 1000);    
 }  
+
+
+
+
+
+
+
+
+
+
+$("#nav-submit").click(function(e) {
+  e.preventDefault();
+  var msg = $("#nav-input").val(); 
+  if(msg.trim() == ''){
+    return false;
+  }
+  
+  generate_nav(msg, 'self');
+  
+    setTimeout(function() {      
+      generate_nav(msg, 'user');  
+    }, 1000)
+    
+ 
+  
+})
+
+function generate_nav(msg, type) {
+  INDEX ++;
+  console.log(INDEX);
+  var str="";
+  str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + "\">";
+  str += "          <span class=\"msg-avatar\">";
+  str += "            <img src=\"avatar.png\">";
+  str += "          <\/span>";
+  str += "          <div class=\"cm-msg-text\">";
+  if (type == "user"){
+    if (isValidHttpUrl(msg)){
+      window.open(msg, '_blank');
+      str += "Opening "
+      if (msg.length > 35){
+
+        for (var i = 0; i < msg.length; i+=35) {
+          str+= msg.slice(i, i+35);
+          str+= "<br>";
+          
+        }
+      }else{
+        str += msg;
+      }
+    }else{
+      str += "Enter a valid URL !";
+
+    }
+    
+  }
+  if (type == "self"){
+    if (msg.length > 35){
+
+      for (var i = 0; i < msg.length; i+=35) {
+        str+= msg.slice(i, i+35);
+        str+= "<br>";
+        
+      }
+    }else{
+      str += msg;
+    }
+  }
+  
+  
+  str += "          <\/div>";
+  str += "        <\/div>";
+  $(".n-chat-logs").append(str);
+  $("#cm-msg-"+INDEX).hide().fadeIn(300);
+  if(type == 'self'){
+   $("#nav-input").val(''); 
+  }    
+  $(".n-chat-logs").stop().animate({ scrollTop: $(".n-chat-logs")[0].scrollHeight}, 1000);   
+  
+  
+}  
+  
   
 }
 
@@ -261,9 +358,24 @@ function dragElement(elmnt) {
 
 
 
-const getMsgResponse = async () => {
+const getMsgResponse = async (msg) => {
   console.log("index.html 10 | Processing...");
-  const request = await fetch("https://covid19.mathdro.id/api");
+  url = "https://1cb0-35-247-76-214.ngrok.io/product/" + msg.toString()
+  console.log(url);
+  const request = await fetch(url);
   const data = await request.json();
   return data;
 };
+
+
+function isValidHttpUrl(string) {
+  let url;
+  
+  try {
+    url = new URL(string);
+  } catch (_) {
+    return false;  
+  }
+
+  return url.protocol === "http:" || url.protocol === "https:";
+}
