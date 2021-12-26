@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page Title</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="center-text">
+      <!-- <iframe style="height:500px ;width: 100%;border:3px solid black; 
+      " src="https://www.urtasker.com" title="description"></iframe> -->
+    </div>
+    <div id="body">
+      <div id="chat-circle" class="btn btn-raised">
+        <div id="chat-overlay"></div>
+        <span
+          class="iconify"
+          data-icon="bx:bx-message-square-detail"
+          style="color: white;"
+          data-width="30"
+          data-height="30"
+        ></span>
+      </div>
+
+      <div id="chat-circle2">
+        <div id="chat-overlay"></div>
+        <img id="sponge-img" src="giphy-5.gif" />
+      </div>
+
+      <div id="chat-circle3" class="btn btn-raised">
+        <div id="chat-overlay"></div>
+        <span
+          class="iconify"
+          data-icon="grommet-icons:navigate"
+          style="color: white;"
+          data-width="30"
+          data-height="30"
+        ></span>
+      </div>
+      <div id="chat-circle4" class="btn btn-raised">
+        <div id="chat-overlay"></div>
+        <span
+          class="iconify"
+          data-icon="bi:ticket-perforated"
+          style="color: white;"
+          data-width="30"
+          data-height="30"
+        ></span>
+      </div>
+
+      <div class="chat-box">
+        <div class="chat-box-header">
+          Bot by NUSTAC
+          <span id="icon-heart" class="iconify" data-icon="mdi:heart"></span>
+          <span class="chat-box-toggle"
+            ><i class="material-icons">close</i></span
+          >
+        </div>
+        <div class="chat-box-body">
+          <div class="chat-box-overlay"></div>
+          <div class="chat-logs"></div>
+          <!--chat-log -->
+        </div>
+        <div class="chat-input">
+          <form>
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Send a message..."
+            />
+            <button type="submit" class="chat-submit" id="chat-submit">
+              <i class="material-icons">send</i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
